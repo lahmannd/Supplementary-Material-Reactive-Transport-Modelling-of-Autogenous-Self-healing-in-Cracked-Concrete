@@ -8,10 +8,7 @@ Helmut-Schmidt-University Hamburg/University of the Federal Armed Forces Hamburg
 The files included in this package contain:
 1) Detailed chemical data of the water (chemical composition, pH, alkalinity) measured at C0, t and C1, t used for the modelling.
 2) Detailed flow rate of the samples over time.
-3) Modelling Output:
-   -Precipitation rates over time of the kinetic reactants calcite and M-S-H
-   -Dissolution rate of portlandite over time
-   -Reactive surface area over time
+3) Modelling Output: Precipitation rates over time of the kinetic reactants calcite and M-S-H, dissolution rate of portlandite over time, reactive surface area over time
 
 Contact: lahmannd@hsu-hh.de
 
