@@ -1,0 +1,453 @@
+DATABASE c:\phreeqc\database\PHREEQC.DAT #default database PHREEQC.DAT
+TITLE 1 #PHREEQC sample input sheet for reactive transport modelling of autogenous self-healing. 
+SOLUTION_MASTER_SPECIES # Speciation of AlO2- is added to the default database. Data is taken from CEMDATA18, Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+Al		AlO2-	0.0	AlO2	26.981541	
+
+SOLUTION_SPECIES # Speciation of AlO2- is added to the default database. Data is taken from CEMDATA18, Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+AlO2-	=	AlO2-
+	-gamma 	4  0.064
+	-log_k 	0.0
+AlO2- + 2H+ = AlO+ + H2O
+	-analytical_expression	-0.423917 0 3851.729324 -0.084762 0 0 0
+	-gamma	4 0.064
+	-log_K	12.285123
+
+AlO2- + 3H+ = Al(OH)+2 + H2O
+	-analytical_expression	-67.530882 0 9473.0536 21.693818 0 0 0
+	-gamma	4 0.064
+	-log_K	17.921907
+
+AlO2- + H2O + SiO2 = AlSiO5-3 + 2H+
+	-analytical_expression	-10.000641 0 -3759.481479 0 0 0 0
+	-gamma	4 0.064
+	-log_K	-22.609995
+
+AlO2- + 3H+ + SiO2 = AlHSiO3+2 + H2O
+	-analytical_expression	49.32925 0 3459.291193 -16.35201 0 0 0 
+	-gamma	4 0.064 
+	-log_K	20.469103
+
+AlO2- + 4H+ = Al+3 + 2H2O
+	-analytical_expression	-32.960146 0 10342.694854 8.547302 0 0 0
+	-gamma	6.65 0.19
+	-log_K	22.879124
+	
+	
+#In the following, the definition of additional phases, mainly from the CEMDATA18 database, with the keyword PHASES. This is done for the analysis of saturation indices and the definition of dissolution mechanisms. The latter is important for the dissolution of cement hydrate and the release of pore solution with the keyword REACTION.
+
+PHASES #Definition of additional phases 
+Portlandite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca(OH)2 + 2H+ = Ca+2 + 2H2O
+	-Vm	33.06
+	-analytical_expression	-11.299363 0 7301.394065 3.883957 0 0 0
+	-log_K	22.799937 	
+	
+brucite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Mg(OH)2 + 2H+ = Mg+2 + 2H2O
+	-Vm	24.63
+	-analytical_expression	-21.32009 0 6782.887663 6.227777 0 0 0
+	-log_K	16.8401	
+	
+CSH # Marty et al. (2015) - A database of dissolution and precipitation rates for clay-rocks minerals, Applied Geochemistry 55 (2015) 108-118.
+	Ca0.8SiO2.8:1.54H2O + 1.6H+ = 0.8Ca+2 + SiO2 + 2.34H2O
+	-log_k	-11.050
+	-delta_h	47.646 kJ/mol
+	
+thaumasite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaSiO3)(CaSO4)(CaCO3)(H2O)15 + 2H+ = CO3-2 + 3Ca+2 + SO4-2 + 16H2O + SiO2
+	-Vm	330
+	-analytical_expression	167.233706 0 -8544.402669 -56.373637 0 0 0
+	-log_K	-0.939919
+
+	
+C3AH6 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca3Al2O6(H2O)6 + 4H+ = 3Ca+2 + 2AlO2- + 8H2O 
+	-Vm	149.702
+	-analytical_expression	6.92717 0 11498.865007 -4.036936 0 0 0
+	-log_K	35.500282
+
+ettringite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	((H2O)2)Ca6Al2(SO4)3(OH)12(H2O)24 + 4H+ = 6Ca+2 + 3SO4-2 + 2AlO2- + 34H2O
+	-Vm	707.03003
+	-analytical_expression	249.812807 0 -9575.448133 -83.467765 0 0 0
+	-log_K	11.100288
+	
+C3AS0.41H5.18 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca3Al2O6(SiO2)0.41(H2O)5.18 + 4H+ = 3Ca+2 + 2AlO2- + 7.18H2O + 0.41SiO2
+	-Vm	146.12
+	-analytical_expression	15.787929 0 9382.192907 -7.403224 0 0 0
+	-log_K	28.932364
+
+C3AS0.84H4.32 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.s
+	AlCa3AlO6(SiO2)0.84(H2O)4.32 + 4H+ = 3Ca+2 + 2AlO2- + 6.32H2O + 0.84SiO2
+	-Vm	142.492
+	-analytical_expression	25.095111 0 8272.186752 -10.93384 0 0 0
+	-log_K	25.780644
+
+C4AClH10 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca4Al2Cl2(OH)12(H2O)4 + 4H+ = 2Cl- + 4Ca+2 + 2AlO2- + 12H2O
+	-Vm	272.3
+	-analytical_expression	133.572952 0 3525.182989 -47.085195 0 0 0
+	-log_K	28.730289
+	
+C4AH11 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca4Al2(OH)14(H2O)4 + 6H+ = 4Ca+2 + 2AlO2- + 14H2O
+	-Vm	257.346
+	-analytical_expression	75.788218 0 15723.564353 -27.493686 0 0 0
+	-log_K	60.486292
+
+C4AH13 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca4Al2(OH)14(H2O)6 + 6H+ = 4Ca+2 + 2AlO2- + 16H2O
+	-Vm	274.47001
+	-analytical_expression	55.325344 0 15044.855527 -19.004596 0 0 0
+	-log_K	58.751897
+
+C4AH19 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca4Al2(OH)14(H2O)12 + 6H+ = 4Ca+2 + 2AlO2- + 22H2O
+	-Vm	368.69999
+	-analytical_expression	-11.900205 0 16241.7182 6.460722 0 0 0
+	-log_K	58.550427
+	
+hydrotalcite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Mg4Al2O7(H2O)10 + 6H+ = 4Mg+2 + 2AlO2- + 13H2O
+	-Vm	220.2
+	-analytical_expression	-64.408885 0 14558.45083 17.606952 0 0 0
+	-log_K	27.981048
+monocarbonate # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca4Al2CO9(H2O)11 + 4H+ = CO3-2 + 4Ca+2 + 2AlO2- + 13H2O
+	-Vm	261.95801
+	-analytical_expression	140.009891 0 2199.460032 -49.64706 0 0 0
+	-log_K	24.530285
+	
+C3AS0.41H5.18 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca3Al2O6(SiO2)0.41(H2O)5.18 + 4H+ = 3Ca+2 + 2AlO2- + 7.18H2O + 0.41SiO2
+	-Vm	146.12
+	-analytical_expression	15.787929 0 9382.192907 -7.403224 0 0 0
+	-log_K	28.932364
+
+C3AS0.84H4.32 # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	AlCa3AlO6(SiO2)0.84(H2O)4.32 + 4H+ = 3Ca+2 + 2AlO2- + 6.32H2O + 0.84SiO2
+	-Vm	142.492
+	-analytical_expression	25.095111 0 8272.186752 -10.93384 0 0 0
+	-log_K	25.780644
+	
+natrolite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+    Na2(Al2Si3)O10(H2O)2 = 2AlO2- + 2Na+ + 3SiO2 + 2H2O
+	-Vm 169.2
+	-analytical_expression 31.8586 0 -9899.44 -11.661534306 0 0 0
+	-log_K -30.2
+zeoliteP_Ca # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca(Al2Si2)O8(H2O)4.5 = 2AlO2- + Ca+2 + 2SiO2 + 4.5H2O 
+	-Vm 152.85 
+	-analytical_expression 132.861 0 -5357.72 -54.635048311 0 0 0
+	-log_k -20.3
+
+chabazite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	Ca(Al2Si4)O12(H2O)6 = 2AlO2- + Ca+2 + 4SiO2 + 6H2O
+	-Vm 251.16
+	-analytical_expression 34.7164 0 -7737.68 -13.968471285 0 0 0
+	-log_K -25.8
+	
+hydrocalumite # Gasci et al.(2016) - Estimation of the solubility product of hydrocalumite–hydroxide, a layered double hydroxide with the formula of [Ca2Al(OH)6]OH·nH2O, Journal of Physics and Chemistry of Solids 98 (2016) 167-173. 
+	Ca2Al(OH)7  = 2Ca+2 + Al(OH)4- + 3OH-
+	#-Vm	220.2
+	#-analytical_expression	-64.408885 0 14558.45083 17.606952 0 0 0
+	-log_K	-11.9
+	
+C2S # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)2SiO2 + 4H+ = 2Ca+2 + 2H2O + SiO2
+	-Vm	51.79
+	-analytical_expression	-4.75838 0 12467.437992 0.569296 0 0 0
+	-log_K	38.567691
+
+C3A # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)3Al2O3 + 4H+ = 3Ca+2 + 2AlO2- + 2H2O
+	-Vm	89.217
+	-analytical_expression	71.858176 0 21788.248051 -30.009988 0 0 0
+	-log_K	71.013492
+	
+Chlorite #Zhang et l.(2019)- A library of BASIC scripts of reaction rates for geochemical modeling using phreeqc, Computer and Geoscience 133 (2019) 104316.
+	Mg5Al2Si3O10(OH)8 + 16H+ = 5Mg+2 + 2Al+3 + 3H4SiO4 + 6H2O
+	-analytic	-2.890049e+004	-7.520262e+000	1.341335e+006	1.101286e+004	-6.548747e+007	2.141534e-003
+	-Vm	211.4000
+
+CSHQ-JenD # # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)1.5(SiO2)0.6667(H2O)2.5 + 3H+ = 1.5Ca+2 + 4H2O + 0.6667SiO2
+	-Vm	81
+	-analytical_expression	-15.591756 0 8609.739692 6.24251 0 0 0
+	-log_K	28.730362
+
+CSHQ-JenH # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)1.3333(SiO2)1(H2O)2.1667 + 2.6666H+ = 1.3333Ca+2 + 3.5H2O + SiO2
+	-Vm	76
+	-analytical_expression	-17.10944 0 6470.553982 7.107847 0 0 0
+	-log_K	22.179305
+
+CSHQ-TobD # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	((CaO)1.25(SiO2)1(H2O)2.75)0.6667 + 1.66675H+ = 0.833375Ca+2 + 2.6668H2O + 0.6667SiO2
+	-Vm	48
+	-analytical_expression	-10.916344 0 3959.367696 4.563888 0 0 0
+	-log_K	13.655314
+
+CSHQ-TobH # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)0.6667(SiO2)1(H2O)1.5 + 1.3334H+ = 0.6667Ca+2 + 2.1667H2O + SiO2
+	-Vm	55
+	-analytical_expression	-12.519254 0 2163.381583 5.476331 0 0 0
+	-log_K	8.286642
+Jennite # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(SiO2)1(CaO)1.666667(H2O)2.1 + 3.333334H+ = 1.666667Ca+2 + 3.766667H2O + SiO2
+	-Vm	78.4
+	-analytical_expression	-19.396078 0 8669.561341 7.93557 0 0 0
+	-log_K	29.311107
+
+hemicarbonate - # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)3Al2O3(CaCO3)0.5(CaO2H2)0.5(H2O)11.5 + 5H+ = 0.5CO3-2 + 4Ca+2 + 2AlO2- + 14.5H2O
+	-Vm	284.515
+	-analytical_expression	62.269608 0 9549.770855 -21.589162 0 0 0
+	-log_K	40.870354
+
+hemicarbonate9 - # CEMDATA18 Lotehbach et al. 2019 - Cemdata18: A chemical thermodynamic database for hydrated Portland cements and alkali-activated materials, Cement and Concrete Research 115 (2019) 472-506.
+	(CaO)3Al2O3(CaCO3)0.5(CaO2H2)0.5(H2O)8.5 + 5H+ = 0.5CO3-2 + 4Ca+2 + 2AlO2- + 11.5H2O
+	-Vm	249.26001
+	-analytical_expression	93.058654 0 11173.871793 -34.321784 0 0 0
+	-log_K	45.601854	
+END # Definition of databases, addtional phases and speciation is completed.
+
+# Definition of the solution that enters the crack. This corresponds to the measured water composition, alkalinity and temperature at C0,t. It is shown here for the first day of healing of sample S4. The corresponding data are marked in yellow in the additional data set and must be exchanged accordingly for other measurement days or samples.  
+
+SOLUTION 0-20 
+	-ph 7.94	# Supplementary data sheet #2 Tab. 1
+	temp 21.63	# Supplementary data sheet #2 Tab. 1
+	-pe 12.5 O2(g) -0.67 # Definition of the partial pressure of oxygen in the atmosphere. 
+	units mg/l	# definition of the unit of the ionic composition
+	Alkalinity 170.9 as HCO3 # Supplementary data sheet #2 Tab. 1
+	Ca 46.72	# Supplementary data sheet #1 Tab. 1
+	Mg 5.48		# Supplementary data sheet #1 Tab. 1
+	Na 11.68	# Supplementary data sheet #1 Tab. 1
+	K 1.68		# Supplementary data sheet #1 Tab. 1
+	Cl 18.15	# Supplementary data sheet #1 Tab. 1
+	Al 0.001	# Supplementary data sheet #1 Tab. 1	
+	Si 7.87		# Supplementary data sheet #1 Tab. 1
+	S(6) 57		# Additional ions according to analysis of water supplier Reference [26] Tab. 4 in the manuscript
+	N(5) 0.6	# Additional ions according to analysis of water supplier Reference [26] Tab. 4 in the manuscript
+	F 0.14		# Additional ions according to analysis of water supplier Reference [26] Tab. 4 in the manuscript
+	Fe 0.05		# Additional ions according to analysis of water supplier Reference [26] Tab. 4 in the manuscript
+SAVE SOLUTION 0-20
+END
+
+# Definition of advective transport:
+ADVECTION 1
+	-cells 20		# No. of modelled cells (20) 
+	-shifts 20		# No. of shifts (20)
+	-time_step 3.23 minute	# Supplementary data sheet #3 Tab. 2
+	-punch_cells 1-20	# Print all cells to outputfile 
+	-punch_frequency 20	# Print all cells to outputfile 
+	-print_cells 1-20 	# Print all cells to outputfile 
+	-print_frequency 20	# Print all cells to outputfile 
+
+# Calibarted dissolution of cement hydrates and release of pore solution. Data from supplementary dataset sheet #5 Tab. 3. The exact dissolution mechanisms are defined in the databases used.  
+REACTION 0-20
+	Portlandite
+	0.0001473 moles
+	NaOH		0.06943
+	KOH		0.05275
+	ettringite 	0.00006
+	monocarbonate   0.00005
+	CSH		0.0025
+INCREMENTAL_REACTIONS true # gradual increase of the released amount of cement hydrate or pore solution from crack inlet (cell 1) to crack outlet (cell 20)
+	
+	
+# Definition of rate equations of the considered kinetic reactants. 
+RATES 
+########
+#Calcite Rate Expression from Zhang et l. - A library of BASIC scripts of reaction rates for geochemical modeling using phreeqc, Computer and Geoscience 133 (2019) 104316.
+########
+Calcite
+
+# Data from Marty et al. - A database of dissolution and precipitation rates for clay-rocks minerals, Applied Geochemistry 55 (2015) 108-118.
+
+-start
+1 rem unit should be mol,kgw-1 and second-1
+2 rem parm(1) is surface area in the unit of m2/kgw
+3 rem calculation of surface area can be found in the note 
+4 rem M is current moles of minerals. M0 is the initial moles of minerals
+5 rem parm(2) is a correction factor # remains 1 in all models
+10 rem acid solution parameters
+11 a1=0
+12 E1=0
+13 n1=0
+20 rem neutral solution parameters
+21 a2=6.59E+04
+22 E2=66000
+30 rem co2 solution parameters
+31 a3=1.04E+09	
+32 E3=67000
+33 n2=1.6
+36 rem rate=0 if no minerals and undersaturated
+40 SR_mineral=SR("calcite")
+41 if (M<0) then goto 200
+42 if (M=0 and SR_mineral<1) then goto 200
+43 if (M0<=0) then SA=PARM(1) else SA=PARM(1)*(M/M0)^0.67
+50 if (SA<=0) then SA=1
+60 R=8.31451
+75 Rate1=a1*EXP(-E1/R/TK)*ACT("H+")^n1  #acid rate expression
+80 Rate2=a2*EXP(-E2/R/TK)               #neutral rate expression
+85 Rate3=a3*EXP(-E3/R/TK)*ACT("HCO3-")^n2    #base rate expression
+90 Rate=(Rate1+Rate2+Rate3)*(1-Sr_mineral)*SA*parm(2)
+100 moles= rate*Time
+200 save moles
+-end
+
+###########
+#talc Rate Expression from Zhang et l. - A library of BASIC scripts of reaction rates for geochemical modeling using phreeqc, Computer and Geoscience 133 (2019) 104316.
+#########
+Talc
+# Data from Palandri and Kharaka - A Compilation of Rate Parameters of Water-Mineral Interaction Kinetics for Application to Geochemical Modeling, Report U.S. Geological Survey (2004) 1-64.
+
+-start
+1 rem unit should be mol,kgw-1 and second-1
+2 rem parm(1) is surface area in the unit of m2/kgw
+3 rem calculation of surface area can be found in the note 
+4 rem M is current moles of minerals. M0 is the initial moles of minerals
+5 rem parm(2) is a correction factor # remains 1 in all models
+10 rem acid solution parameters
+11 a1=0		
+12 E1=0
+13 n1=0
+20 rem neutral solution parameters
+21 a2=2.28E-05	
+22 E2=42000
+30 rem base solution parameters
+31 a3=0
+32 E3=0
+33 n2=0
+36 rem rate=0 if no minerals and undersaturated
+40 SR_mineral=SR("Talc")
+41 if (M<0) then goto 200
+42 if (M=0 and SR_mineral<1) then goto 200
+43 if (M0<=0) then SA=PARM(1) else SA=PARM(1)*(M/M0)^0.67
+50 if (SA<=0) then SA=1
+60 R=8.31451
+75 Rate1=a1*EXP(-E1/R/TK)*ACT("H+")^n1  #acid rate expression
+80 Rate2=a2*EXP(-E2/R/TK)               #neutral rate expression
+85 Rate3=a3*EXP(-E3/R/TK)*ACT("H+")^n2    #base rate expression
+90 Rate=(Rate1+Rate2+Rate3)*(1-Sr_mineral)*SA*parm(2)
+100 moles= rate*Time
+200 save moles
+-end
+
+##########
+#brucite Rate Expression from Zhang et al. - A library of BASIC scripts of reaction rates for geochemical modeling using phreeqc, Computer and Geoscience 133 (2019) 104316.
+##########
+brucite # Data from Palandri and Kharaka - A Compilation of Rate Parameters of Water-Mineral Interaction Kinetics for Application to Geochemical Modeling, Report U.S. Geological Survey (2004) 1-64.
+
+-start
+1 rem unit should be mol,kgw-1 and second-1
+2 rem parm(1) is surface area in the unit of m2/kgw
+3 rem calculation of surface area can be found in the note 
+4 rem M is current moles of minerals. M0 is the initial moles of minerals
+5 rem parm(2) is a correction factor # remains 1 in all models
+10 rem acid solution parameters
+11 a1=4.00E+05		
+12 E1=59000
+13 n1=0.500
+20 rem neutral solution parameters
+21 a2=1.30E-01	
+22 E2=42000
+30 rem base solution parameters
+31 a3=0
+32 E3=0
+33 n2=0
+36 rem rate=0 if no minerals and undersaturated
+40 SR_mineral=SR("brucite")
+41 if (M<0) then goto 200
+42 if (M=0 and SR_mineral<1) then goto 200
+43 if (M0<=0) then SA=PARM(1) else SA=PARM(1)*(M/M0)^0.67
+50 if (SA<=0) then SA=1
+60 R=8.31451
+75 Rate1=a1*EXP(-E1/R/TK)*ACT("H+")^n1  #acid rate expression
+80 Rate2=a2*EXP(-E2/R/TK)               #neutral rate expression
+85 Rate3=a3*EXP(-E3/R/TK)*ACT("H+")^n2    #base rate expression
+90 Rate=(Rate1+Rate2+Rate3)*(1-Sr_mineral)*SA*parm(2)
+100 moles= rate*Time
+200 save moles
+-end
+
+#############
+#chrysotile Rate Expression from Zhang et al. - A library of BASIC scripts of reaction rates for geochemical modeling using phreeqc, Computer and Geoscience 133 (2019) 104316.
+##############
+chrysotile
+# Data from Palandri and Kharaka - A Compilation of Rate Parameters of Water-Mineral Interaction Kinetics for Application to Geochemical Modeling, Report U.S. Geological Survey (2004) 1-64.
+
+-start
+1 rem unit should be mol,kgw-1 and second-1
+2 rem parm(1) is surface area in the unit of m2/kgw
+3 rem calculation of surface area can be found in the note 
+4 rem M is current moles of minerals. M0 is the initial moles of minerals
+5 rem parm(2) is a correction factor # remains 1 in all models
+10 rem acid solution parameters
+11 a1=0		
+12 E1=0
+13 n1=0
+20 rem neutral solution parameters
+21 a2=7.50	
+22 E2=73500
+30 rem base solution parameters
+31 a3=2.00E-01		
+32 E3=73500
+33 n2=-0.230
+36 rem rate=0 if no minerals and undersaturated
+40 SR_mineral=SR("chrysotile")
+41 if (M<0) then goto 200
+42 if (M=0 and SR_mineral<1) then goto 200
+43 if (M0<=0) then SA=PARM(1) else SA=PARM(1)*(M/M0)^0.67
+50 if (SA<=0) then SA=1
+60 R=8.31451
+75 Rate1=a1*EXP(-E1/R/TK)*ACT("H+")^n1  #acid rate expression
+80 Rate2=a2*EXP(-E2/R/TK)               #neutral rate expression
+85 Rate3=a3*EXP(-E3/R/TK)*ACT("H+")^n2    #base rate expression
+90 Rate=(Rate1+Rate2+Rate3)*(1-Sr_mineral)*SA*parm(2)
+100 moles= rate*Time
+200 save moles
+-end
+
+#Integration of the Kinetic calculations in each modelled cell. 
+KINETICS 0-20
+Calcite
+-formula CaCO3 
+-m        0.000
+-m0       0.000
+-tol 1.0e-8	
+-parms 0.0675 1 #Refined SA of Calcite, supplementary data sheet #6 Tab. 1, the second parameter must remains 1 (see rate expressions) 
+
+talc # MSH
+-formula Mg3Si4O10(OH)2
+-m	0.000
+-m0	0.000
+-tol 	1.0e-8
+-parms  0.00000001 1 #Refined SA of M-S-H, supplementary data sheet #6 Tab. 1, the second parameter must remains 1 (see rate expressions) 
+
+chrysotile # MSH
+-formula Mg3Si2O5(OH)4
+-m	0.000
+-m0	0.000
+-tol 	1.0e-8
+-parms  0.00000001 1 #Refined SA of M-S-H, supplementary data sheet #6 Tab. 1, the second parameter must remains 1 (see rate expressions) 
+
+brucite # M-S-H
+-formula Mg(OH)2
+-m	0.000
+-m0	0.000
+-tol 	1.0e-8
+-parms  0.00000001 1 #Refined SA of M-S-H, supplementary data sheet #6 Tab. 1, the second parameter must remains 1 (see rate expressions) 
+
+#Definition of relevant data that is printed to the output file
+
+SELECTED_OUTPUT 
+	-file Sample_S4_day_0.sel #File name of output file: Sample_SX_day_x.sel
+	-ph #Print pH change to output file
+	-SI Calcite Aragonite Talc Chrysotile Sepiolite brucite CSH thaumasite hydrotalcite C4AClH10 C3AH6 Chlorite(14A) K-mica Kaolinite C3AS0.84H4.32 ettringite gypsum monocarbonate natrolite hydrocalumite  portlandite #Selection of phases whose saturation indices are printed in the output file
+	-reaction true 
+	-molalities CaCO3 Ca+2 Mg+2 K+ Na+ Al(OH)4- AlO2- SO4-2 CO3-2  HCO3- CO2 #Selection of the ions whose molalities are written to the output file
+	-kinetic_reactants Calcite Talc Chrysotile brucite #Print molar transfer/ cell of kinetic reactants to output file
+END
